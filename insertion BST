@@ -1,0 +1,66 @@
+#include<iostream>
+using namespace std;
+struct node{
+    int data;
+    struct node *left,*right;
+}*root=NULL;
+
+void createTree(int n){
+    int data;
+    struct node *newnode,*temp;
+    for(int i=1;i<=n;i++)
+    {
+         cin>>data;
+         newnode=(struct node *)malloc(sizeof(struct node));
+         newnode->data=data;
+         newnode->left=newnode->right=NULL;
+         if(root==NULL)
+           root=newnode;
+        else
+        {
+            temp=root;
+            while(temp!=NULL){
+            if((newnode->data<temp->data) && (temp->left==NULL))
+            {
+                temp->left=newnode;
+                break;
+            }
+            else if(newnode->data<temp->data)
+              temp=temp->left;
+            else if((newnode->data>temp->data) && (temp->right==NULL))
+            {
+                temp->right=newnode;
+                break;
+            }
+            else{
+                temp=temp->right;
+            }
+            
+            
+            }
+        }
+        
+        
+    }
+    
+}
+
+
+void inorder(struct node *r){
+    if(r!=NULL)
+    {
+        inorder(r->left);
+        cout<<r->data<<" ";
+        inorder(r->right);
+    }
+}
+    
+
+int main()
+{
+
+    int n;
+    cin>>n;
+    createTree(n);
+    inorder(root);
+}
